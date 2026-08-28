@@ -1,0 +1,54 @@
+#ifndef BOOT_CONFIG_H
+#define BOOT_CONFIG_H
+
+#include "gd32f30x.h"
+#include "boot_shared.h"
+
+
+#define BOOT_UART_PERIPH    USART1
+#define BOOT_UART_RCU    RCU_USART1
+#define BOOT_UART_GPIO_RCU    RCU_GPIOA
+#define BOOT_UART_TX_PORT    GPIOA
+#define BOOT_UART_TX_PIN    GPIO_PIN_2
+#define BOOT_UART_RX_PORT    GPIOA
+#define BOOT_UART_RX_PIN    GPIO_PIN_3
+#define BOOT_UART_BAUD_RATE    (115200UL)
+
+
+#define BOOT_WATCHDOG_GPIO_RCU    RCU_GPIOB
+#define BOOT_WATCHDOG_PORT    GPIOB
+#define BOOT_WATCHDOG_PIN    GPIO_PIN_6
+#define BOOT_WATCHDOG_FIRST_LOW_MS    (10UL)
+#define BOOT_WATCHDOG_FIRST_HIGH_MS     (10UL)
+#define BOOT_WATCHDOG_FEED_PERIOD_MS    (200UL)
+
+
+#define BOOT_NORMAL_LISTEN_WINDOW_MS    (3000UL)
+#define BOOT_PACKET_START_TIMEOUT_MS    (20UL)
+#define BOOT_PACKET_INTERBYTE_TIMEOUT_MS    (250UL)
+#define BOOT_ACTIVE_SESSION_TIMEOUT_MS    (30000UL)
+
+
+#define BOOT_TEST_COPY_BLOCK_DELAY_MS    (0UL)
+
+#define BOOT_ALLOW_UART_ENTRY_ON_NORMAL_BOOT    (1U)
+
+#define BOOT_PROTOCOL_VERSION    (1U)
+#define BOOT_PACKET_DATA_BYTES    (256U)
+#define BOOT_PACKET_MAX_PAYLOAD    (260U)
+
+#define BOOT_SRAM_START_ADDRESS    (0x20000000UL)
+#define BOOT_SRAM_END_EXCLUSIVE    (0x2000C000UL)
+
+#define BOOT_REQUEST_REGISTER_HIGH    BKP_DATA_40
+#define BOOT_REQUEST_REGISTER_LOW    BKP_DATA_41
+
+#if (BOOT_PACKET_DATA_BYTES > 256U)
+#error "The host and target protocol use a maximum 256 byte data block"
+#endif
+
+#if (BOOT_PACKET_MAX_PAYLOAD < (BOOT_PACKET_DATA_BYTES + 4U))
+#error "The payload must hold the offset and one complete data block"
+#endif
+
+#endif 

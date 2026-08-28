@@ -1,0 +1,7 @@
+FreeRTOS Kernel version: V11.1.0
+Official repository: https://github.com/FreeRTOS/FreeRTOS-Kernel
+Selected port: portable/GCC/ARM_CM4F
+Allocation policy: static only, no heap_*.c
+
+Only the kernel files required by this D2-W migration are vendored here.
+The original FreeRTOS MIT license is retained in LICENSE.md.
